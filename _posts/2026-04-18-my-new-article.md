@@ -11,3 +11,5 @@ The text investigates how listening can be viewed as an act of poetic attunement
 A significant portion of the article is dedicated to the analysis of compositions by Edgard Varèse, Barry Truax, Hildegard Westerkamp, Natasha Barrett, and Zhang Xiaofu. These close readings demonstrate how memory and place are woven into sonic architectures, treating the soundscape as a spatial text rather than a linear narrative. This perspective highlights the role of electroacoustic art in shaping cultural and ethical encounters through sound.
 
 For those interested in the philosophical and technical dimensions of soundscape composition, the full article is now available through the MIT Press website. You can find the complete text and citation information using the DOI: https://doi.org/10.1162/COMJ.a.696.
+
+![Article PDF first page preview](images/comj.a.696.pdf.gif)
