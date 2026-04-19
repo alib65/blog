@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Words</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrollbars when words hit edges */
+            background-color: #f0f0f0; /* Light gray background */
+            font-family: 'Arial', sans-serif;
+        }
 
+        .word-box {
+            position: absolute;
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            white-space: nowrap; /* Keeps multi-word phrases on one line */
+            user-select: none; /* Prevents highlighting text while moving */
+            border-radius: 4px; /* Slight rounding of corners */
+            will-change: transform; /* Performance optimization */
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    // 1. The list of words you requested
+    const wordList = [
+        "I", 
+        "If", 
+        "When", 
+        "A tree", 
+        "Was", 
+        "Sky", 
+        "Black", 
+        "Dead"
+    ];
+
+    const elements = [];
+
+    // 2. Initialize the words
+    function init() {
+        wordList.forEach(text => {
+            const div = document.createElement('div');
+            div.classList.add('word-box');
+            div.innerText = text;
+            document.body.appendChild(div);
+
+            // Create an object to track physics for this specific element
+            const obj = {
+                element: div,
+                x: Math.random() * (window.innerWidth - 100),
+                y: Math.random() * (window.innerHeight - 50),
+                // Random velocity between -2 and 2
+                vx: (Math.random() - 0.5) * 4, 
+                vy: (Math.random() - 0.5) * 4,
+                width: 0, 
+                height: 0
+            };
+
+            // Calculate exact size after appending to DOM
+            const rect = div.getBoundingClientRect();
+            obj.width = rect.width;
+            obj.height = rect.height;
+
+            elements.push(obj);
+        });
+
+        // Start the animation loop
+        requestAnimationFrame(animate);
+    }
+
+    // 3. The Animation Loop
+    function animate() {
+        const screenW = window.innerWidth;
+        const screenH = window.innerHeight;
+
+        elements.forEach(obj => {
+            // Update position based on velocity
+            obj.x += obj.vx;
+            obj.y += obj.vy;
+
+            // Check Horizontal Boundaries (Bounce off left or right walls)
+            if (obj.x <= 0) {
+                obj.x = 0;
+                obj.vx *= -1; // Reverse direction
+            } else if (obj.x + obj.width >= screenW) {
+                obj.x = screenW - obj.width;
+                obj.vx *= -1;
+            }
+
+            // Check Vertical Boundaries (Bounce off top or bottom walls)
+            if (obj.y <= 0) {
+                obj.y = 0;
+                obj.vy *= -1;
+            } else if (obj.y + obj.height >= screenH) {
+                obj.y = screenH - obj.height;
+                obj.vy *= -1;
+            }
+
+            // Apply the new position
+            obj.element.style.transform = `translate(${obj.x}px, ${obj.y}px)`;
+        });
+
+        // Repeat the loop
+        requestAnimationFrame(animate);
+    }
+
+    // Run the initialization
+    init();
+
+</script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000 Moving Lines</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* No scrollbars */
+            background-color: #ffffff;
+        }
+        canvas {
+            display: block; /* Removes tiny scrollbar at bottom */
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // --- CONFIGURATION ---
+    const LINE_COUNT = 1000;   // Number of lines
+    const LINE_LENGTH = 400;   // Length of the lines in pixels
+    const SPEED = 2;           // Max movement speed
+    const LINE_WIDTH = 1;      // Thickness of the lines
+    // ---------------------
+
+    let width, height;
+    const lines = [];
+
+    // Resize canvas to fill the window
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    // Initialize the line objects
+    function init() {
+        resize();
+        for (let i = 0; i < LINE_COUNT; i++) {
+            lines.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                // Random angle in radians (0 to 360 degrees)
+                angle: Math.random() * Math.PI * 2, 
+                // Random speed
+                speed: (Math.random() * SPEED) + 0.5 
+            });
+        }
+    }
+
+    // The Animation Loop
+    function animate() {
+        // Clear the screen (comment this out to create a painting/trail effect)
+        ctx.clearRect(0, 0, width, height);
+
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = LINE_WIDTH;
+        
+        // Begin drawing batch
+        ctx.beginPath();
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+
+            // 1. Update Position (move forward in the direction of angle)
+            line.x += Math.cos(line.angle) * line.speed;
+            line.y += Math.sin(line.angle) * line.speed;
+
+            // 2. Wrap around screen edges (Teleport to other side)
+            // This prevents them from disappearing forever
+            if (line.x > width + LINE_LENGTH) line.x = -LINE_LENGTH;
+            if (line.x < -LINE_LENGTH) line.x = width + LINE_LENGTH;
+            if (line.y > height + LINE_LENGTH) line.y = -LINE_LENGTH;
+            if (line.y < -LINE_LENGTH) line.y = height + LINE_LENGTH;
+
+            // 3. Draw the line
+            // Calculate the end point based on the angle
+            const endX = line.x + Math.cos(line.angle) * LINE_LENGTH;
+            const endY = line.y + Math.sin(line.angle) * LINE_LENGTH;
+
+            ctx.moveTo(line.x, line.y);
+            ctx.lineTo(endX, endY);
+        }
+
+        // Render all lines at once for high performance
+        ctx.stroke();
+
+        requestAnimationFrame(animate);
+    }
+
+    // Handle window resizing
+    window.addEventListener('resize', resize);
+
+    // Start
+    init();
+    animate();
+
+</script>
+
+</body>
+</html>
