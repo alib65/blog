@@ -13,23 +13,31 @@
   <style>
     :root {
       --bg-color: #000000; /* Simple Pure Black */
-      --text-main: #F4F0EB;
+      --text-main: #F4F0EB; /* Bone white */
       --text-dim: #888888;
-      --accent-color: #ff0000;
+      --accent-color: #ff0000; /* Red */
       --border-color: rgba(244, 240, 235, 0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* --- CORE STYLES --- */
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
       font-family: 'Cormorant Garamond', serif;
       min-height: 100vh;
       margin: 0;
+      overflow-x: hidden;
     }
 
-    /* --- MENU & IDENTITY (From Example) --- */
+    /* Page Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #000000; }
+    ::-webkit-scrollbar-thumb { background: #333333; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+
+    /* --- UI LAYOUT (Menu & Title) --- */
     #top-container {
       width: 100%;
       display: flex;
@@ -38,7 +46,6 @@
       padding-top: 40px;
       padding-bottom: 20px;
       gap: 25px;
-      border-bottom: 1px solid rgba(244, 240, 235, 0.05);
     }
 
     .menu {
@@ -50,14 +57,16 @@
     }
 
     .highlight {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Cormorant Garamond', monospace;
       color: #ffffff;
       padding: 6px 12px;
       text-decoration: none;
-      font-size: 14px;
+      font-size: 16px;
       letter-spacing: 2px;
       border: 1px solid transparent;
       transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
       text-transform: uppercase;
     }
 
@@ -69,29 +78,31 @@
       transform: scale(1.02);
     }
 
+    /* --- IDENTITY / TITLE STYLES --- */
     .identity { text-align: center; }
+    
     .identity h1 a {
       font-family: 'Cormorant Garamond', serif;
       font-size: 54px;
       font-weight: 500;
       letter-spacing: 2px;
-      color: var(--text-main);
+      color: #ffffff;
       text-decoration: none;
       line-height: 1;
     }
 
     .subtitle-text {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Cormorant Garamond', monospace;
       font-size: 13px;
       color: #aaaaaa;
       margin-top: 12px;
       letter-spacing: 1px;
     }
 
-    /* --- ORIGINAL POST STYLES (Preserved) --- */
+    /* --- MAIN CONTENT & POST STYLES --- */
     main {
       max-width: 760px;
-      margin: 60px auto;
+      margin: 20px auto 60px auto;
       padding: 0 30px;
     }
 
@@ -106,16 +117,40 @@
     h1 { font-size: 42px; }
     h2 { font-size: 28px; margin-top: 40px; }
 
-    p {
-      font-size: 18px;
-      line-height: 1.8;
+    main p {
+      font-size: 20px;
+      line-height: 1.6;
+      text-align: justify;
       color: var(--text-main);
       margin-bottom: 20px;
     }
 
-    main a { color: var(--accent-color); text-decoration: none; }
-    main a:hover { text-shadow: 0 0 8px rgba(255,0,0,0.4); }
+    main strong { 
+      color: var(--text-main); 
+      font-weight: 700; 
+      letter-spacing: 1px; 
+    }
 
+    /* Link styling matched to main code */
+    main a { 
+      color: var(--accent-color); 
+      text-decoration: none; 
+      border-bottom: 1px dashed var(--accent-color);
+      transition: all 0.2s;
+    }
+    
+    main a:hover { 
+      border-bottom-style: solid;
+      text-shadow: 0 0 8px rgba(255, 0, 0, 0.4); 
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px dashed var(--text-dim);
+      margin: 40px 0;
+    }
+
+    /* Blog List Specific Overrides */
     .post-meta {
       font-family: 'Space Mono', monospace;
       font-size: 11px;
@@ -130,9 +165,18 @@
       border-bottom: 1px solid rgba(244, 240, 235, 0.05);
       padding: 30px 0;
     }
-    .post-list h2 a { color: var(--text-main); transition: color 0.3s; }
-    .post-list h2 a:hover { color: var(--accent-color); text-shadow: none; }
+    .post-list h2 a { 
+      color: var(--text-main); 
+      transition: color 0.3s; 
+      border-bottom: none; /* Remove dashed border for titles */
+    }
+    .post-list h2 a:hover { 
+      color: var(--accent-color); 
+      text-shadow: none; 
+      border-bottom: none;
+    }
 
+    /* Footer */
     footer {
       text-align: center;
       padding: 40px;
@@ -143,10 +187,24 @@
       font-family: 'Space Mono', monospace;
     }
 
+    /* --- MOBILE RESPONSIVENESS --- */
     @media (max-width: 768px) {
-      .identity h1 a { font-size: 32px; }
+      #top-container { padding-top: 25px; gap: 20px; }
+      
+      .menu { gap: 8px; }
+      
       .highlight { font-size: 10px; padding: 5px 8px; }
-      main { padding: 0 20px; margin: 40px auto; }
+      
+      .identity h1 a { font-size: 36px; }
+      
+      .subtitle-text { 
+        font-size: 10px; 
+        line-height: 1.4; 
+        padding: 0 15px; 
+      }
+
+      main { padding: 0 20px; margin: 10px auto 40px auto; }
+      main p { font-size: 18px; text-align: left; }
     }
   </style>
 </head>
@@ -171,7 +229,7 @@
 
     <div class="identity">
       <h1><a href="https://alibalighi.com">Ali Balighi</a></h1>
-      <div class="subtitle-text">Composer & scholar — electroacoustic, contemporary, and cross-cultural music</div>
+      <div class="subtitle-text">Composer & Scholar — electroacoustic, contemporary, and cross-cultural music</div>
     </div>
   </header>
 
