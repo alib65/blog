@@ -12,4 +12,6 @@ A significant portion of the article is dedicated to the analysis of composition
 
 For those interested in the philosophical and technical dimensions of soundscape composition, the full article is now available through the MIT Press website. You can find the complete text and citation information using the DOI: https://doi.org/10.1162/COMJ.a.696.
 
+
+<img src="/images/comj.a.696.pdf.gif" alt="description" style="width: 100%; max-width: 600px;">
 ![Article PDF first page preview](/images/comj.a.696.pdf.gif)
