@@ -6,4 +6,4 @@ date: 2026-04-19
 
 # First Post
 
-Welcome to my blog!
+Hi I am Ali and I am trying to describe music in a new way! give me your feedback about it!
