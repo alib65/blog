@@ -5,7 +5,9 @@ date: 2026-04-21
 ---
 
 <p style="font-size: 18px; line-height: 1.8; color: #F4F0EB; margin: 30px 0;">
-I have always held a deep love for painting and sketching, captivated by the idea of translating inner thoughts and visions onto a blank surface. However, despite my passion, I never felt I possessed the traditional talent or physical ability to express myself through those classical mediums. Fortunately, discovering creative coding has opened a completely new avenue for me. It has given me a way to use logic, algorithms, and mathematics as my brush and paper. <em>Animated Sketch No. 1</em> is my very first exploration into this space. It captures the jagged, imperfect texture of a charcoal drawing, breathing and shifting continually—brought to life not through manual dexterity, but through the expressive power of code.
+I’ve always loved the idea of painting and sketching—the simple magic of pulling a thought out of your head and putting it onto paper. But if I’m being honest, my hands never quite had the traditional skill to match my imagination. The passion was there, but the physical technique just wasn't. 
+<br><br>
+Finding creative coding changed everything. It gave me a new way in, allowing me to use the tools I <em>do</em> understand—logic, math, and algorithms—as my brush and canvas. <em>Animated Sketch No. 1</em> is my very first step into this world. I wanted it to capture the raw, jagged feel of a charcoal drawing, constantly shifting and breathing. It’s an imperfect, sketchy texture, but instead of relying on a steady hand, it’s brought to life entirely by the power of code.
 </p>
 
 <iframe 
