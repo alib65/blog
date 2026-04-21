@@ -1,21 +1,21 @@
 ---
 layout: default
-title: "Graphic Score 01"
+title: "Graphic Score No. 1"
 date: 2026-04-21
 ---
-
-<p dir="rtl" style="text-align: right;">
-در من صدایی بود<br>
-که معنای روز را به یاد نمی‌آورد.<br>
-شب بود یا روز؟<br>
-در من گویی چیزی گم شده است.
-</p>
 
 <p style="text-align: left;">
 There was a voice deep within me,<br>
 That remembered not the meaning of day.<br>
 Was it night, or was it day?<br>
 As though something inside me has slipped away.
+</p>
+
+<p dir="rtl" style="text-align: right;">
+در من صدایی بود<br>
+که معنای روز را به یاد نمی‌آورد.<br>
+شب بود یا روز؟<br>
+در من گویی چیزی گم شده است.
 </p>
 
 <br>
