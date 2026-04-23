@@ -3,6 +3,23 @@ layout: default
 title: "Animated Sketch No.2"
 date: 2026-04-23
 ---
+
+<iframe 
+  src="https://blog.alibalighi.com/Animated-Sketch/Animated-Sketch-02.html" 
+  width="100%" 
+  height="600px" 
+  style="border: none; display: block; margin: 20px 0;">
+</iframe>
+
+<p style="text-align: center; color: #888; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px;">GENERATIVE ART / ANIMATED SKETCH</p>
+
+<a href="https://blog.alibalighi.com/Animated-Sketch/Animated-Sketch-02.html" 
+   target="_blank"
+   style="display: block; text-align: center; margin: 20px auto; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;">
+   View Fullscreen
+</a>
+
+
 <p style="text-align: left;">
 Little girl,<br>
 don’t cry.<br>
@@ -34,19 +51,3 @@ Perhaps you, too, are a star.<br><br>
 </p>
 
 <br>
-
-
-<iframe 
-  src="https://blog.alibalighi.com/Animated-Sketch/Animated-Sketch-02.html" 
-  width="100%" 
-  height="600px" 
-  style="border: none; display: block; margin: 20px 0;">
-</iframe>
-
-<p style="text-align: center; color: #888; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 2px;">GENERATIVE ART / ANIMATED SKETCH</p>
-
-<a href="https://blog.alibalighi.com/Animated-Sketch/Animated-Sketch-02.html" 
-   target="_blank"
-   style="display: block; text-align: center; margin: 20px auto; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;">
-   View Fullscreen
-</a>
