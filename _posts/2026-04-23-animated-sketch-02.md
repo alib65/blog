@@ -12,9 +12,6 @@ date: 2026-04-23
   style="border: none; display: block; margin: 20px 0;">
 </iframe>
 
-<br><br>
-<br><br>
-
 
 <p style="text-align: left;">
 Little girl,<br>
