@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dusty Spotlight</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
+  canvas { display: block; width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+const NUM_RAYS = 90;
+const NUM_PARTICLES = 700;
+let rays = [], particles = [];
+
+// Fixed source — never moves
+const SX_FRAC = 0.50;
+const SY_FRAC = -0.03;
+
+function getSX() { return W * SX_FRAC; }
+function getSY() { return H * SY_FRAC; }
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  initRays();
+  initParticles();
+}
+
+function initRays() {
+  rays = [];
+  for (let i = 0; i < NUM_RAYS; i++) {
+    const baseAngle = -0.54 + Math.random() * 1.08;
+    rays.push({
+      baseAngle,
+      angle:       baseAngle,
+      len:         0.55 + Math.random() * 0.55,
+      width:       0.5  + Math.random() * 2.8,
+      baseAlpha:   0.02 + Math.random() * 0.06,
+      sweepPhase:  Math.random() * Math.PI * 2,
+      sweepSpeed:  0.0006 + Math.random() * 0.0014,
+      sweepAmp:    0.04   + Math.random() * 0.14,
+      pulsePhase:  Math.random() * Math.PI * 2,
+      pulseSpeed:  0.003  + Math.random() * 0.007,
+      pulseAmp:    0.3    + Math.random() * 0.5,
+      widthPhase:  Math.random() * Math.PI * 2,
+      widthSpeed:  0.004  + Math.random() * 0.006,
+    });
+  }
+}
+
+function makeParticle() {
+  const sx = getSX(), sy = getSY();
+  const angle = -0.54 + Math.random() * 1.08;
+  const dist  =  0.08 + Math.random() * 0.90;
+  return {
+    x: sx + Math.sin(angle) * dist * H,
+    y: sy + Math.cos(angle) * dist * H,
+    vx: (Math.random() - 0.5) * 0.13,
+    vy:  0.04 + Math.random() * 0.11,
+    r:   0.7  + Math.random() * 2.0,
+    alpha:      0.10 + Math.random() * 0.55,
+    phase:      Math.random() * Math.PI * 2,
+    phaseSpeed: 0.004 + Math.random() * 0.011,
+    waveAmp:    0.1   + Math.random() * 0.35,
+  };
+}
+
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < NUM_PARTICLES; i++) particles.push(makeParticle());
+}
+
+function drawBackground() {
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawConeFill() {
+  const sx = getSX(), sy = getSY();
+  const len = H * 1.5;
+  const lx = sx + Math.sin(-0.54) * len, ly = sy + Math.cos(-0.54) * len;
+  const rx = sx + Math.sin( 0.54) * len, ry = sy + Math.cos( 0.54) * len;
+  const grad = ctx.createRadialGradient(sx, sy, 0, sx, sy, len);
+  grad.addColorStop(0,    'rgba(255,255,255,0.13)');
+  grad.addColorStop(0.10, 'rgba(200,200,200,0.08)');
+  grad.addColorStop(0.35, 'rgba(130,130,130,0.04)');
+  grad.addColorStop(0.7,  'rgba(60,60,60,0.015)');
+  grad.addColorStop(1,    'rgba(0,0,0,0)');
+  ctx.beginPath();
+  ctx.moveTo(sx, sy);
+  ctx.lineTo(lx, ly);
+  ctx.lineTo(rx, ry);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+}
+
+function drawRays() {
+  const sx = getSX(), sy = getSY();
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  for (const r of rays) {
+    r.sweepPhase += r.sweepSpeed;
+    r.pulsePhase += r.pulseSpeed;
+    r.widthPhase += r.widthSpeed;
+
+    // Rays sweep from fixed source point — only the angle changes
+    r.angle = r.baseAngle + Math.sin(r.sweepPhase) * r.sweepAmp;
+
+    const pulse      = 1 + Math.sin(r.pulsePhase) * r.pulseAmp * 0.35;
+    const widthPulse = 1 + Math.sin(r.widthPhase) * 0.4;
+
+    const ex = sx + Math.sin(r.angle) * r.len * H * 1.35;
+    const ey = sy + Math.cos(r.angle) * r.len * H * 1.35;
+
+    const grad = ctx.createLinearGradient(sx, sy, ex, ey);
+    const a = r.baseAlpha * pulse;
+    grad.addColorStop(0,    `rgba(255,255,255,${Math.min(1, a * 4.0)})`);
+    grad.addColorStop(0.07, `rgba(245,245,245,${Math.min(1, a * 2.5)})`);
+    grad.addColorStop(0.25, `rgba(190,190,190,${a * 1.0})`);
+    grad.addColorStop(0.55, `rgba(110,110,110,${a * 0.45})`);
+    grad.addColorStop(1,    'rgba(0,0,0,0)');
+
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.lineTo(ex, ey);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = r.width * widthPulse;
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawFloorReflection() {
+  const sx = getSX(), sy = getSY();
+  const floorY = H * 0.74;
+  const hw = Math.tan(0.54) * (floorY - sy) * 0.88;
+  const g = ctx.createRadialGradient(sx, floorY, 0, sx, floorY, hw);
+  g.addColorStop(0,   'rgba(90,90,90,0.24)');
+  g.addColorStop(0.3, 'rgba(55,55,55,0.11)');
+  g.addColorStop(0.7, 'rgba(20,20,20,0.04)');
+  g.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.save();
+  ctx.translate(sx, floorY);
+  ctx.scale(1, 0.16);
+  ctx.beginPath();
+  ctx.arc(0, 0, hw, 0, Math.PI * 2);
+  ctx.fillStyle = g;
+  ctx.fill();
+  ctx.restore();
+}
+
+function drawParticles() {
+  const sx = getSX(), sy = getSY();
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    p.phase += p.phaseSpeed;
+    p.x += p.vx + Math.sin(p.phase) * p.waveAmp * 0.05;
+    p.y += p.vy;
+    if (p.y > H + 10 || p.x < -20 || p.x > W + 20) {
+      particles[i] = makeParticle(); continue;
+    }
+    const dx = p.x - sx, dy = p.y - sy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const brightness = Math.max(0, 1 - dist / (H * 0.92));
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${p.alpha * brightness * 0.6})`;
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawSourceGlow() {
+  const sx = getSX(), sy = getSY();
+  const r = W * 0.17;
+  const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, r);
+  g.addColorStop(0,    'rgba(255,255,255,1)');
+  g.addColorStop(0.05, 'rgba(255,255,255,0.95)');
+  g.addColorStop(0.16, 'rgba(225,225,225,0.58)');
+  g.addColorStop(0.38, 'rgba(160,160,160,0.20)');
+  g.addColorStop(0.68, 'rgba(80,80,80,0.06)');
+  g.addColorStop(1,    'rgba(0,0,0,0)');
+  ctx.beginPath();
+  ctx.arc(sx, sy, r, 0, Math.PI * 2);
+  ctx.fillStyle = g;
+  ctx.fill();
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  drawBackground();
+  drawConeFill();
+  drawRays();
+  drawFloorReflection();
+  drawParticles();
+  drawSourceGlow();
+}
+
+resize();
+window.addEventListener('resize', resize);
+animate();
+</script>
+</body>
+</html>
