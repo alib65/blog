@@ -1,10 +1,10 @@
 ---
 layout: default
-title: "Publication: Abstract featured in Most Wanted: Music Research (MW:MR 2024)"
+title: "Publication: Abstract featured in Most Wanted: Music Research (MW:MR 2025)"
 date: 2026-04-24
 ---
 
-I’m happy to share that my abstract, <em>From Tape to AI: Tracing the Evolution of Electroacoustic Music Technologies</em>, has been published by Most Wanted: Music Research (MW:MR 2024)!
+I’m happy to share that my abstract, <em>From Tape to AI: Tracing the Evolution of Electroacoustic Music Technologies</em>, has been published by Most Wanted: Music Research (MW:MR 2025)!
 
 In this review, I explore how technological shifts—from analogue tape to modern AI—have transformed compositional strategies and aesthetics within the electroacoustic domain. 
 
