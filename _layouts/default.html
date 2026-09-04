@@ -114,6 +114,19 @@
             font-size: 13px;
         }
 
+        .social-menu .icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-menu .icon-img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            display: block;
+        }
+
         .highlight:hover,
         .highlight[aria-current="page"] {
             color: var(--accent-color);
@@ -293,10 +306,10 @@
 
     <nav class="social-menu" aria-label="External links">
         <a href="{{ '/' | relative_url }}" class="highlight" aria-current="page">BLOG</a>
-        <a href="https://github.com/alib65" target="_blank" rel="noopener noreferrer" class="highlight">CODE</a>
-        <a href="https://alibalighi.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="highlight">BANDCAMP</a>
-        <a href="https://www.youtube.com/@AliBalighi" target="_blank" rel="noopener noreferrer" class="highlight">YOUTUBE</a>
-        <a href="https://electronicnights.github.io" target="_blank" rel="noopener noreferrer" class="highlight">ELECTRONIC NIGHTS</a>
+        <a href="https://github.com/alib65" target="_blank" rel="noopener noreferrer" class="highlight icon-link" aria-label="Code (GitHub)"><img src="{{ '/icons/code.png' | relative_url }}" alt="" class="icon-img" loading="lazy"></a>
+        <a href="https://alibalighi.bandcamp.com/" target="_blank" rel="noopener noreferrer" class="highlight icon-link" aria-label="Bandcamp"><img src="{{ '/icons/bandcamp.png' | relative_url }}" alt="" class="icon-img" loading="lazy"></a>
+        <a href="https://www.youtube.com/@AliBalighi" target="_blank" rel="noopener noreferrer" class="highlight icon-link" aria-label="YouTube"><img src="{{ '/icons/youtube.png' | relative_url }}" alt="" class="icon-img" loading="lazy"></a>
+        <a href="https://electronicnights.github.io" target="_blank" rel="noopener noreferrer" class="highlight icon-link" aria-label="Electronic Nights"><img src="{{ '/icons/electronicnights.png' | relative_url }}" alt="" class="icon-img" loading="lazy"></a>
     </nav>
 </header>
 
