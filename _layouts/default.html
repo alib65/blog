@@ -132,6 +132,71 @@
             cursor: default;
         }
 
+        .nav-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-group-toggle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            clip-path: inset(50%);
+            white-space: nowrap;
+            border: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .nav-group-head {
+            display: flex;
+            align-items: stretch;
+        }
+
+        .nav-group-caret {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 8px 8px 2px;
+            color: #ffffff;
+            font-size: 11px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .nav-group-caret:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-group-toggle:checked ~ .nav-group-head .nav-group-caret,
+        .nav-group-toggle:checked ~ .nav-group-link {
+            color: var(--accent-color);
+        }
+
+        .nav-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 20;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 190px;
+            padding: 6px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-group:hover .nav-dropdown,
+        .nav-group-toggle:checked ~ .nav-dropdown {
+            display: flex;
+        }
+
         /* --- IDENTITY / TITLE STYLES --- */
         .identity {
             text-align: center;
@@ -294,17 +359,42 @@
 
     <nav class="menu" aria-label="Primary navigation">
         <a href="https://alibalighi.com/index.html" class="highlight">HOME</a>
-        <a href="https://alibalighi.com/about.html" class="highlight">ABOUT</a>
-        <a href="https://alibalighi.com/music.html" class="highlight">MUSIC</a>
-        <a href="https://alibalighi.com/albums.html" class="highlight">ALBUMS</a>
-        <a href="https://alibalighi.com/performance.html" class="highlight">PERFORMANCES</a>
-        <a href="https://alibalighi.com/scores.html" class="highlight">SCORES</a>
-        <a href="https://alibalighi.com/articles.html" class="highlight">ARTICLES</a>
-        <a href="https://alibalighi.com/conferences.html" class="highlight">CONFERENCES</a>
-        <a href="https://alibalighi.com/books.html" class="highlight">BOOKS</a>
-        <a href="https://alibalighi.com/courses.html" class="highlight">COURSES</a>
+
+        <div class="nav-group">
+            <input type="checkbox" id="nav-music-toggle" class="nav-group-toggle">
+            <span class="nav-group-head">
+                <a href="https://alibalighi.com/music.html" class="highlight nav-group-link">MUSIC</a>
+                <label for="nav-music-toggle" class="nav-group-caret" aria-label="Toggle Music menu">&#9662;</label>
+            </span>
+            <div class="nav-dropdown">
+                <a href="https://alibalighi.com/music.html" class="highlight">Works</a>
+                <a href="https://alibalighi.com/albums.html" class="highlight">Albums</a>
+                <a href="https://alibalighi.com/performance.html" class="highlight">Performances</a>
+                <a href="https://alibalighi.com/scores.html" class="highlight">Scores</a>
+            </div>
+        </div>
+
+        <div class="nav-group">
+            <input type="checkbox" id="nav-research-toggle" class="nav-group-toggle">
+            <label for="nav-research-toggle" class="highlight nav-group-link">Research &amp; Teaching &#9662;</label>
+            <div class="nav-dropdown">
+                <a href="https://alibalighi.com/articles.html" class="highlight">Articles</a>
+                <a href="https://alibalighi.com/conferences.html" class="highlight">Conferences</a>
+                <a href="https://alibalighi.com/courses.html" class="highlight">Courses</a>
+            </div>
+        </div>
+
+        <div class="nav-group">
+            <input type="checkbox" id="nav-writing-toggle" class="nav-group-toggle">
+            <label for="nav-writing-toggle" class="highlight nav-group-link" aria-current="page">Writing &#9662;</label>
+            <div class="nav-dropdown">
+                <a href="https://alibalighi.com/books.html" class="highlight">Poetry</a>
+                <a href="{{ '/' | relative_url }}" class="highlight" aria-current="page">Blog</a>
+            </div>
+        </div>
+
         <a href="https://alibalighi.com/news.html" class="highlight">NEWS</a>
-        <a href="{{ '/' | relative_url }}" class="highlight" aria-current="page">BLOG</a>
+        <a href="https://alibalighi.com/about.html" class="highlight">ABOUT</a>
         <a href="https://alibalighi.com/contact.html" class="highlight">CONTACT</a>
     </nav>
 </header>
