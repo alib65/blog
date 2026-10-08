@@ -4,12 +4,10 @@ title: "Micromorphosis No. 3 at Texas Tech University"
 date: 2026-10-08
 ---
 
-Excited to share that my audiovisual installation <em>Micromorphosis No. 3</em> (2026) will be performed on <strong>October 9, 2026</strong> at the School of Music, Texas Tech University.
-
-### Program Note
-
 **Micromorphosis No. 3**
 Audiovisual installation | Ali Balighi | 2026
+
+### Program Note
 
 <em>Micromorphosis No. 3</em> is an audiovisual installation in which sound, image, and time grow from one numerical source: the Fibonacci series. Five numbers from the series (13, 21, 34, 55, and 89) are used in three different ways. They divide the octave into microtonal scales, they set the length of each section of the work, and they shape the growth of the spirals in the visual field.
 
